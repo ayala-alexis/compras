@@ -1,0 +1,248 @@
+
+.title_traza{
+    font-size:12px;
+    font-weight: bold;
+    display:block;
+    border-top: 1px #ddd solid;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.traza .traza-item{
+    font-size: 10px;
+    min-height: 75px;
+}
+
+.traza .traza-item{
+    position:relative;
+    background:#ddd;
+    text-align:left;
+    margin:5px auto;
+    border:1px #fff solid;
+    margin-bottom: 55px;
+    color:#888;
+}
+.traza .traza-item.pause{
+    background:#e6c27e;
+    color:#111;
+    padding-left: 3px;
+}
+.traza .traza-item.pause > .info-status i{
+    color:orange;
+}
+.traza .traza-item.pre{
+    background:#cdd066;
+    color:#111;
+}
+.traza .traza-item.pre > .info-status i{
+    color:green;
+}
+.traza .traza-item.stop{
+    background:#ea4848;
+    color:#111;
+    padding-left: 3px;
+}
+.traza .traza-item.stop > .info-status i{
+    color:red;
+}
+.traza .traza-item.ok{
+    background:#75ab75;
+    color:#111;
+	padding-left: 3px;
+}
+.traza .traza-item.ok > .info-status i{
+    color:green;
+}
+.traza .traza-item:after, .traza .traza-item:before{
+    content:"";
+    position:absolute;
+    width:10px;
+    height:50%;
+    right:0px;
+}
+.traza .traza-item:after{
+    bottom:0%;
+    background: linear-gradient(to right bottom, #ddd 50%, #fff 50%);
+}
+.traza .traza-item:before{
+    top:0%;
+    background: linear-gradient(to right top, #ddd 50%, #fff 50%);
+}
+.traza .traza-item.pause:after{
+    bottom:0%;
+    background: linear-gradient(to right bottom, #e6c27e 50%, #fff 50%);
+}
+.traza .traza-item.pause:before{
+    top:0%;
+    background: linear-gradient(to right top, #e6c27e 50%, #fff 50%);
+}
+.traza .traza-item.pre:after{
+    bottom:0%;
+    background: linear-gradient(to right bottom, #cdd066 50%, #fff 50%);
+}
+.traza .traza-item.pre:before{
+    top:0%;
+    background: linear-gradient(to right top, #cdd066 50%, #fff 50%);
+}
+.traza .traza-item.stop:after{
+    bottom:0%;
+    background: linear-gradient(to right bottom, #ea4848 50%, #fff 50%);
+}
+.traza .traza-item.stop:before{
+    top:0%;
+    background: linear-gradient(to right top, #ea4848 50%, #fff 50%);
+}
+.traza .traza-item.ok:after{
+    bottom:0%;
+    background: linear-gradient(to right bottom, #75ab75 50%, #fff 50%);
+}
+.traza .traza-item.ok:before{
+    top:0%;
+    background: linear-gradient(to right top, #75ab75 50%, #fff 50%);
+}
+.traza .traza-item > .info-status{
+    position: absolute;
+    top: 80px;
+    left: 10px;
+    z-index: 1000;
+    font-size:11px;
+    vertical-align: top;
+}
+.traza .traza-item > div{
+    height: 0px;
+    position: absolute;
+    bottom: -25px;
+    font-size: 10px;
+    line-height: 10px;
+}
+.traza .traza-item > .info-status2{
+    position: absolute;
+    top: 105px;
+    left: 10px;
+    z-index: 1000;
+    font-size:11px;
+    vertical-align: top;
+}
+.traza .traza-item > .info-status > span{
+    text-align:left;
+    font-size: 10px;
+    padding-top: 5px;
+    margin-top: 5px;
+    border-top:1px #ddd solid;
+}
+.traza .traza-item > .info-status i,
+.traza .traza-item > .info-status2 i{
+    font-size: 22px;
+    vertical-align: middle;
+    margin-top: -5px;
+}
+.traza .traza-item > i{
+    font-size: 22px;
+    position: absolute;
+    bottom: -25px;
+    right: 47%;
+    top:auto;
+    z-index: 1000;
+}
+.traza .traza-item label{
+	font-size:9px;
+	width:107%;
+}
+.loading{
+    position: fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height: 100%;
+    background-color: #222222b3;
+    z-index: 1000;
+}
+.loading{
+    display: none;
+}
+.loading > div{
+    position: absolute;
+    left:0;
+    top:0;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    max-width: 100%;
+    max-height: 100%;
+    margin:auto;
+}
+.loading > div > label{
+    position: absolute;
+    bottom:-30px;
+    letter-spacing: 1.2px;
+    width:100%;
+    text-align:center;
+    color:white;
+    font-size:15px;
+}
+.loading > div > img{
+    position: absolute;
+    left:0;
+    top:0;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    margin:auto;
+}
+.dropdown-menu{
+    min-width: 300px;
+}
+ul.nav.navbar-nav li.active a img{
+    height: 35px;
+    width: auto;
+}
+.datepicker-days table thead tr{
+    background-color: transparent !important;
+}
+.datepicker-days table thead tr:nth-child(2) th{
+    border-radius: 0;
+    background-color: #006dcc;
+    background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -ms-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+    background-image: linear-gradient(top, #0088cc, #0044cc);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
+    border-color: #0044cc #0044cc #002a80;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.datepicker-days table thead tr:nth-child(2) th:nth-child(7){
+    border-radius: 0 5px 5px 0 !important;
+}
+.datepicker-days table thead tr:nth-child(2) th:nth-child(1){
+    border-radius: 5px 0 0 5px !important;
+}
+.datepicker-days table tbody tr td{
+    font-size:11px;
+    color:#111;
+    font-weight: bold;
+}
+.datepicker table tr td.old, .datepicker table tr td.new {
+    color: #aaa;
+}
+.row .col20{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    float: left;
+    width: 19.5%;
+}
+
+.row .col20 span{
+    font-size: 11px;
+    letter-spacing: 0;
+}

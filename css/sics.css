@@ -1,0 +1,94 @@
+h4.title{
+	color:#175aa1;
+	font-size: 16px;
+	border-bottom: 1px #175aa1 solid;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+a.btn,button{
+	font-size: 14px !important;
+	min-height: 40px;
+}
+.btn-grupo i{
+	padding: 0;
+	margin:0;
+	font-size: 18px;
+	vertical-align: top;
+}
+.btn-grupo li a{
+	text-align: left;
+}
+.btn-grupo.btn-group > .btn:first-child {
+    margin-left: 0;
+    border-radius: 5px 0 0 5px;
+}
+span.ccs{
+    display: inline-block;
+    min-width: 12px;
+    text-align: right;
+    padding-right: 1px;
+}
+table.tbl-kpi thead{
+	border-bottom: 2px #ccc solid;
+}
+table.tbl-kpi{
+	background-color: white;
+	border:2px #ccc solid;
+	border-radius: 2px;
+}
+table.tbl-kpi thead tr th{
+	font-size: 12px;
+	background-color: #f5f5f5;
+	border:none;
+	padding: 1px 1px 1px 5px;
+}
+tbody tr.tsol{
+	background-color: #fff;
+	font-size: 10.2px;
+}
+tbody tr.tsol td{
+	border-bottom: 1px #e6e6e6 solid;
+}
+tbody tr.tsol td{
+	padding: 1px 1px 4px 5px;
+	vertical-align: middle;
+}
+tbody tr.tsol td .btn{
+	min-height: 30px;
+}
+tbody tr.tsol.tsol1{
+	background-color: #fff;
+}
+tbody tr.tsol.tsol2{
+	background-color: #f8f8f8;
+}
+/*
+tbody tr.tsol:nth-child(2n+1){
+	background-color: #f5f5f5;
+}
+*/
+tbody tr.tsol.ci td:nth-child(1){
+	border-left: 3px #a70f0f solid;
+}
+tbody tr.tsol.req td:nth-child(1){
+	border-left: 3px #2f78c3 solid;
+}
+tbody tr.tsol.cheque td:nth-child(1){
+	border-left: 3px green solid;
+}
+tbody tr.tsol.sol td:nth-child(1){
+	border-left: 3px #da4810 solid;
+}
+
+/*
+Estilo de Filtro de búsqueda de consultas
+*/
+
+.rw-filter > div{
+	padding-left: 1px;
+	padding-right: 5px;
+}
+.rw-filter > div > select{
+	padding-left: 0;
+	padding-right: 0;
+}

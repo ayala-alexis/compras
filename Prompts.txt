@@ -1,0 +1,45 @@
+-- Toma el rol de un desarrollador senior, experto en Back End y Front End con PHP
+
+Tengo la necesidad como usuario de crear un formulario con bootstrap 3, javascript y html.
+
+se debe crear un registro en la tabla "prehsol" con los datos de encabezado de la solicitud, los datos a ingresar son los siguientes:
+
+1. Empresa: campo de selección, se debe crear un servicio con php que devuelva las empresas a colocar en el campo, la query es la siguiente:
+
+select
+	distinct
+	e.id_empresa,
+	e.emp_nombre 
+from empresa e
+inner join acc_emp_cc a
+on e.id_empresa = a.id_empresa
+where a.id_usuario = :id_usuario
+order by e.emp_nombre 
+
+El servicio debe estar en el epoint: ?c=solc&a=listEmpresaUser y se consumir al teriminar de cargar el dom html, la variable :id_usuario es una variable que se debe colocar de la sesion de usuario del lado del back end.
+
+2. Centro Costo: campo de selección, este campo esta relacionado con el campo "Empresa", la query para obtener los datos es:
+
+
+
+Dame una plantilla html con bootstrap 3, javascript, css y jquery.
+
+Los campos son:
+
+1. Empresa: drowdown, se debe llenar de un servicio mediante ajax, al momento de cargar el dom.
+2. Centro de costos: drowdown, se debe llenar de un servicio mediante ajax, al momento de cargar el dom, este campo esta relacionado con el campo "Empresa", es decir, al seleccionar una empresa, se debe llenar el campo "Centro de costos" con los centros de costos de la empresa seleccionada.
+3. Categoría: drowdown, se debe llenar de un servicio mediante ajax, al momento de cargar el dom.
+4. 3 adjuntos de tipo .xlsx, .pdf, .docx, se debe crear un elemento en html y css para que sea vistoso para usuario.
+4.1. Agregar un listado de detalle con los campos:
+
+    cantidad: campo entero.
+    producto: drowdown, se debe llenar de un servicio mediante ajax, al momento de seleccionar la categoria.
+    descripcion: campo texto, es requerido si no llena "producto".
+
+5. Boton de agregar detalle, al momento de dar click, se debe agregar una nueva fila en el listado de detalle. De la misma forma debe tener eliminar.
+6. Observación: campo de texto.
+7. Boton de crear solicitud: al momento de dar click, se debe guardar el registro en la tabla "prehsol" y "predsol" con los datos de encabezado y detalle.
+8. Boton de cancelar: al momento de dar click, se debe cancelar la solicitud.
+    
+    
+

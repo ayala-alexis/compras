@@ -1,0 +1,427 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	// Deshabilitamos botones
+	$('#btnUserDelete').addClass('disabled');
+	$('#btnUserSave').addClass('disabled');
+	$('#btnUserCancel').addClass('disabled');
+	$('#btnUserAdd').tooltip();
+	$('#btnUserDelete').tooltip();
+	$('#btnUserSave').tooltip();
+	$('#btnUserCancel').tooltip();
+	$('a').tooltip();
+	// Roles
+	/*
+	$("#roles").click(function(){
+		$("#roles").each(function(){
+			$(this).find("a").css({
+				'background-color' : '#fff',
+			    'font-weight' : 'normal',
+				'color' : '#0088cc'
+			});
+		});
+		$(this).find('a').css({
+			'background-color' : '#ddd',
+		    'font-weight' : 'bold',
+			'color' : 'rgb(0,40,244)'
+		});
+	});
+	*/
+	// Empresas
+	/*
+	$("div#empresas > dl > dt").click(function(){
+		var cheke =  $(this).find('input[type="checkbox"]').is(':checked');
+		$(this).parent().find('dd').each(function(){
+			$(this).find('input[type="checkbox"]').attr('checked', cheke);
+		});
+	});
+	*/
+	// Validacion de Formulario de Adicion de Usuario a Rol
+	var aform = $("#frmAddUser2Rol").validate({
+		rules: {
+			usr_usuario: {
+				required: true
+			},
+			usr_nombre:{
+				required: true
+			},
+	     	usr_password: {
+	       		required: true
+	     	},
+		    usr_password2: {
+			    required: true,
+			    equalTo: "#usr_password"
+		    },
+		    id_rol: {
+			    required: true
+		    }
+	   },
+	   messages: {
+	     	usr_usuario: {
+		     	required : "Digite usuario"
+	     	},
+			usr_nombre: {
+				required: "Digite nombre"
+			},
+	     	usr_password: {
+	       		required: "Digite contrase�a"
+	     	},
+	     	usr_password2: {
+		     	required: "Digite contrase�a",
+		     	equalTo: "Contrase�as no son iguales"
+	     	},
+	     	id_rol: {
+		     	required: "Seleccion Rol"
+	     	}
+		},
+		submitHandler: function(form) {
+		    var campos=xajax.getFormValues("frmAddUser2Rol");
+			$('#waiting').show().dialog({
+				modal: true,
+				width: 250,
+				height: 100
+			});
+			$(":submit").prop("disabled", true);
+			myUrlOC = location.protocol + "//" + location.host + '/sicys/json.php?c=usua&a=verifica';
+			$.post(myUrlOC, 
+				{ 
+					form: campos
+				}, 
+				function(json) {
+					if(json == "OK"){
+						myUrl = location.protocol + "//" + location.host + "/sicys/class/Formulario.php";
+						$.ajax({
+							type : "POST",
+							url : myUrl,
+							data: {
+								form: campos
+							},
+							beforeSend: function(){
+								$("input[type=submit]").attr("disabled","disabled");
+							},
+							success : function(data){
+							    $('#waiting').dialog('close');
+								if(data == "OK" ){
+									location.reload();
+								} else {
+									showNotification({
+										type : "error",
+								        message: "Adicionando Usuario :" + data,
+								        autoClose: true,
+								        duration: 4
+									});
+								}
+							},
+							error : function(XMLHttpRequest, textStatus, errorThrown) {
+							    $('#waiting').dialog('close');
+							    showNotification({
+									type : "error",
+							        message: "Formulario : Ha ocurrido un error durante la ejecucion.",
+							        autoClose: true,
+							        duration: 2
+								});
+							}
+						});
+					} else {
+						showNotification({
+							type : "error",
+					        message: 'Verificando Usuario :' + json,
+					        autoClose: true,
+					        duration: 4
+						});
+						$(":submit").prop("disabled", false);
+						$('#waiting').dialog('close');
+					} 
+			 	}
+			);
+	     }
+	}); 
+	// our modal dialog setup
+	var amodal = $("#formAdicion").dialog({
+	   bgiframe: true,
+	   autoOpen: false,
+       resizable: false,
+       modal: true,
+       width: 600,
+	   buttons: {
+	      'Agregar': function() 
+		  { 
+		  	$("#frmAddUser2Rol").submit(); 
+		  },
+	      Cancel: function() 
+		  { 
+		    $(this).dialog('close'); aform.resetForm(); 
+		  }
+	   }
+	});
+	var abutton = $('#btnUserAdd').click(function() {
+	    $('#formAdicion').dialog('open');
+	});
+	// DYNATREE
+	alto_doc = ($(document).height()-100);
+	alto_span4 = (alto_doc / 2);
+	ancho = $('.span4').width();
+	$('.span4.table-bordered').css({
+		'height' : alto_span4
+	});
+	$("#jqxTree").dynatree({
+			checkbox: true,
+			selectMode: 3,
+			fx: { height: "toggle", duration: 200 }, 
+			autoCollapse: true,
+			onKeydown: function(node, event) {
+				if( event.which == 32 ) {
+					node.toggleSelect();
+					return false;
+				}
+			}
+      });
+});
+</script>
+
+<div id="waiting" style="display: none;">
+	<img src="css/themes/redmond/images/ajax-loader.gif" />
+</div>
+
+<div class="btn-toolbar">
+	<div class="btn-group">
+		<a id="btnUserAdd" class="btn" href="#" data-placement="right" rel="tooltip" title="Adicionar usuario a rol">
+			<i class="icon-user"></i>
+			Adicionar Usuario
+		</a>
+		<a id="btnUserDelete" class="btn" href="#" data-placement="right" rel="tooltip" title="Elimina usuario seleccionado">
+			<i class="icon-trash"></i>
+			Eliminar Usuario
+		</a>
+		<a id="btnUserSave" class="btn" href="#"  data-placement="right" rel="tooltip" title="Guardar cambios realizados">
+			<i class="icon-hdd"></i>
+			Guardar Cambios
+		</a>
+		<a id="btnUserCancel" class="btn" href="#"  data-placement="right" rel="tooltip" title="Cancelar cambios realizados">
+			<i class="icon-refresh"></i>
+			Cancelar Cambios
+		</a>
+	</div>
+</div>
+<div class="fluid-container">
+	<div class="row-fluid">
+		<div class="span4">
+			<div class="well well-small"><b>ROLES</b></div>
+		</div>
+		<div class="span4">
+			<div class="well well-small"><b>EMPRESAS</b></div>
+		</div>
+		<div class="span4">
+			<div class="well well-small"><b>FUNCION PRINCIPAL</b></div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div id="roles" class="span4 table-bordered" style="height: 200px; overflow: hidden;">
+			<div class="accordion" id="roles_accordion">
+			<?php foreach ($roles as $rol) {
+			?>
+				<div class="accordion-group">
+					<div class="accordion-heading">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#roles-accordion" href="<?php echo '#rol'.$rol[0]; ?>">
+							<?php echo $rol[1]; ?>
+						</a>
+					</div>
+					<div id="<?php echo 'rol'.$rol[0]; ?>" class="accordion-body collapse in">
+						<div class="accordion-inner">
+							Anim pariatur cliche...
+						</div>
+					</div>
+				</div>
+			<?php 
+			}
+			?>
+			</div>
+		</div>
+		<div id="empresas" class="span4 table-bordered" style="height: 200px; overflow: hidden;">
+			<div id="jqxTree">
+				<ul id="treeData" style="display: none;">
+				<?php
+				$in20 = 0;
+				foreach ($cc as $cc1) {
+					if($emp != $cc1[0]){
+						if($in20 == 1) {
+						?>
+						</ul>
+						</li>
+						<?php 
+						}
+				?>
+					<li class="expanded">
+						<strong><?php echo $cc1[1]; ?></strong>
+						<ul>
+							<li>
+								<?php echo $cc1[4]; ?>
+							</li>
+				<?php
+					} else {
+				?>
+					<li>
+						<?php echo $cc1[4]; ?>
+					</li>
+				<?php 
+					}
+					$emp = $cc1[0];
+					$in20 = 1;
+				} 
+				?>
+				</ul>
+			</div>
+		</div>
+		<div class="span4 table-bordered" style="height: 200px; overflow: hidden;">
+			<dl>
+				<dd>
+					<label class="checkbox">
+      					<input type="checkbox">ORDEN DE COMPRA
+    				</label>
+				</dd>
+				<dd>
+					<label class="checkbox">
+      					<input type="checkbox">SOLICITUD DE COMPRA
+    				</label>
+				</dd>
+				<dd>
+					<label class="checkbox">
+      					<input type="checkbox">REQUISICION DE SUMINISTRO
+    				</label>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span4">
+			<div class="well well-small"><b>MODULOS</b></div>
+		</div>
+		<div class="span4">
+			<div class="well well-small"><b>ACCESO DE MODULO</b></div>
+		</div>
+		<div class="span4">
+			<div class="well well-small"><b>VALORES</b></div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span4 table-bordered" style="height: 200px; overflow: hidden;">
+			<dl>
+			<?php
+			foreach ($mods as $mod) { 
+			?>
+			<dd>
+				<label class="checkbox">
+      				<input type="checkbox"><?php echo $mod[1]; ?>
+    			</label>
+			</dd>
+			<?php
+			} 
+			?>
+			</dl>
+		</div>
+		<div class="span4 table-bordered" style="height: 200px; overflow: hidden;">
+			<table class="table table-condensed">
+				<thead>
+				<tr>
+					<th>Accion</th>
+					<th><a href="#" rel="tooltip" data-placement="bottom" title="Crear"><i class="icon-plus-sign"></i></a></th>
+					<th><a href="#" rel="tooltip" data-placement="bottom" title="Modificar"><i class="icon-pencil"></i></a></th>
+					<th><a href="#" rel="tooltip" data-placement="bottom" title="Eliminar"><i class="icon-minus-sign"></i></a></th>
+					<th><a href="#" rel="tooltip" data-placement="bottom" title="Exprotar Excel"><i class="icon-list-alt"></i></a></th>
+					<th><a href="#" rel="tooltip" data-placement="bottom" title="Autorizar"><i class="icon-ok-sign"></i></a></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>Permiso para este modulo</td>
+					<td><input type="checkbox"></td>
+					<td><input type="checkbox"></td>
+					<td><input type="checkbox"></td>
+					<td><input type="checkbox"></td>
+					<td><input type="checkbox"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="span4 table-bordered" style="height: 200px; overflow: hidden;">
+			<h1>VALORES	</h1>
+		</div>
+	</div>
+</div>
+<!-- FORMULARIO DE ADICION DE USUARIO -->
+<div id="formAdicion" title="Adicion de Usuario a Rol">
+	<fieldset>
+		<!-- Nuestro formulario sin botones los agregaremos con jquery-ui -->
+	    <form action="#" name="frmAddUser2Rol" id="frmAddUser2Rol" method="POST" class="form-horizontal">
+		    <div class="control-group">
+				<label class="control-label" for="usr_usuario">Usuario</label>
+				<div class="controls">
+					<input type="text" name="usr_usuario" id="usr_usuario" /> 
+				</div>
+			</div>
+				
+			<div class="control-group">
+				<label class="control-label" for="usr_nombre">Nombre</label>
+				<div class="controls">
+					<input type="text" name="usr_nombre" id="usr_nombre" /> 
+				</div>
+			</div>
+				
+			<div class="control-group">
+				<label class="control-label" for="usr_password">Contrase�a</label>
+				<div class="controls">
+					<input type="password" name="usr_password" id="usr_password" />
+				</div>
+			</div>
+				
+			<div class="control-group">
+				<label class="control-label" for="usr_password2">Verificar Contrase�a</label>
+				<div class="controls">
+					<input type="password" name="usr_password2"	id="usr_password2" />
+				</div>
+			</div>
+		    
+		    <?php
+			$db = DB::getInstance ();
+			$conf = Configuracion::getInstance ();
+			$sqlRol = "Select * From " . $conf->getTbl_rol () . " Where id_rol > 1";
+			$RolExec = $db->ejecutar ( $sqlRol );
+			?>
+			<div class="control-group">
+				<label class="control-label" for="id_rol">Rol de Usuario</label>
+				<div class="controls">
+					<select name="id_rol" id="id_rol">
+						<option value="">Seleccion rol</option>
+						<?php
+						while ( $row = mysqli_fetch_array ( $RolExec ) ) {
+							?>
+							<option value="<?php echo $row['id_rol']; ?>"><?php echo $row['rol_descripcion']; ?></option>
+							<?php
+						}
+						?>
+					</select> 
+				</div>
+			</div>
+			<input type="hidden" value="add" id="accion" name="accion">
+			<input type="hidden" value="usuario" id="tabla" name="tabla"> 
+			<input type="hidden" value="<?php echo $_SESSION['u']; ?>" id="usr_crea" name="usr_crea">
+	    </form>
+	</fieldset>
+</div>
+<script>
+(function($){
+   	$(window).load(function(){
+   	   	$(".span4").mCustomScrollbar({
+			verticalScroll:true,
+   			scrollButtons:{
+   				enable:true
+   			},
+   			scrollEasing:"easeOutQuint",
+			autoDraggerLength:false,
+			advanced:{
+				autoExpandHorizontalScroll:true,
+				autoExpandVerticalScroll:true
+			}
+   	   	});
+	});
+})(jQuery);
+</script>
